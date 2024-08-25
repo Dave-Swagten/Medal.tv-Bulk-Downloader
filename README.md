@@ -28,7 +28,7 @@ Start by cloning the repository to your local machine:
 
 ```bash
 git clone https://github.com/Dave-Swagten/Medal.tv-Bulk-Downloader.git
-cd Medal.tv-Bulk-Downloader
+cd Medal.tv-Bulk-Downloader/src
 ```
 
 ---
