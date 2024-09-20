@@ -35,7 +35,7 @@ cd Medal.tv-Bulk-Downloader/src
 
 ## ⚙️ Configuration
 
-Before you can start downloading your clips, you'll need to set up the `config.json` file with your Medal.tv user ID and cookies.
+Before you can start downloading your clips, you'll need to set up the `config.json` file with your Medal.tv username and cookies.
 
 ### 1. Rename the Configuration File
 
@@ -45,30 +45,17 @@ Rename the example configuration file:
 mv example.config.json config.json
 ```
 
-### 2. Find Your User ID and Cookies
+### 2. Set up your username and Cookies
 
-#### 🆔 Getting Your User ID
+#### 🆔 Configuring your username
 
-Unfortunately, Medal.tv doesn't make your user ID easily accessible, so you'll need to do a bit of digging:
+Open `config.json` in a text editor and simply add your username like this:
 
-1. **Go to Your Medal.tv Profile**:
-
-   - Open [Medal.tv](https://medal.tv/) in your browser and log in.
-   - Navigate to your profile page.
-
-2. **Load More Videos**:
-
-   - Scroll down your profile page until more videos load. This will trigger the necessary data to load.
-
-3. **Inspect the Page**:
-
-   - Right-click anywhere on the page and select **Inspect** to open the Developer Tools.
-   - Go to the **Elements** tab.
-
-4. **Search for Your User ID**:
-   - Press `Ctrl+F` (Windows) or `Cmd+F` (Mac) to open the search bar.
-   - Search for `{"userid":"`
-   - You should see something like `"userid":"1234567"`. The number is your user ID. Copy it.
+```json
+{
+  "username": "your_medal_username"
+}
+```
 
 #### 🍪 Exporting Your Cookies
 
@@ -80,11 +67,11 @@ To get your cookies:
 
 ### 3. Update `config.json`
 
-Once you have your user ID and cookies, open `config.json` in a text editor and update it like the example:
+Once you have your username and cookies, open `config.json` in a text editor and update it like the example:
 
 ```json
 {
-  "user_id": 1234567,
+  "username": "user123",
   "cookies": [
     {
       "domain": ".medal.tv",
@@ -131,7 +118,6 @@ The script will fetch your videos and save them to the `downloads` folder. Files
 
 ## 🔧 Troubleshooting
 
-- **Can't Find User ID?**: Make sure you've loaded more videos on your profile page, and search for `{"userid":"` in the page's source.
 - **Cookie Issues?**: Ensure that your cookies are in the correct JSON format and include all necessary data as exported by the browser.
 
 ---
