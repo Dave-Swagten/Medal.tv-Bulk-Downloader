@@ -102,6 +102,19 @@ def main():
         else:
             print("Invalid choice. Please enter 1 or 2.")
     
+    # User input for number of clips to download
+    while True:
+        try:
+            max_clips = int(input("Enter the number of clips to download (0 for all): "))
+            if max_clips < 0:
+                print("Please enter a non-negative number.")
+            else:
+                break
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+
+    total_downloaded = 0
+    
     while True:
         print(f"Fetching data with offset {offset}...")
         data = fetch_data(USER_ID, offset, sort_direction)
@@ -118,6 +131,10 @@ def main():
         batch_start_time = time.time()
 
         for item in data:
+            if max_clips > 0 and total_downloaded >= max_clips:
+                print(f"Reached the specified number of clips ({max_clips}). Stopping download.")
+                return
+
             if 'contentUrl' in item and 'publishedAt' in item:
                 try:
                     content_title = item.get('contentTitle', 'Untitled')
@@ -136,6 +153,7 @@ def main():
                         download_mp4(content_url, filename, download_folder)
                         processed_files.add(filename)
                         video_count += 1
+                        total_downloaded += 1
                     else:
                         print(f"Duplicate file detected, skipping {filename}.")
                     
@@ -152,8 +170,12 @@ def main():
         # Update offset for next batch. This is the number of videos processed so far
         offset += video_count
         print(f"\nCompleted batch. New offset is {offset}.")
-        print(f"Total videos processed: {offset}")
+        print(f"Total videos processed: {total_downloaded}")
         print(f"Elapsed time for this batch: {elapsed_time:.2f} seconds.\n")
+
+        if max_clips > 0 and total_downloaded >= max_clips:
+            print(f"Reached the specified number of clips ({max_clips}). Stopping download.")
+            break
 
 if __name__ == "__main__":
     main()
