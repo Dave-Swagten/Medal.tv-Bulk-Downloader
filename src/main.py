@@ -29,7 +29,30 @@ def parse_cookies(cookies_list):
 config_file = 'config.json'
 config = load_config(config_file)
 COOKIES = parse_cookies(config['cookies'])
-USER_ID = config['user_id']
+
+# Fetch user ID from username
+def fetch_user_id(username):
+    url = f"https://medal.tv/api/users?username={username}"
+    try:
+        response = requests.get(url, cookies=COOKIES)
+        if response.status_code == 200:
+            data = response.json()
+            if data and isinstance(data, list) and len(data) > 0:
+                return data[0].get('userId')
+        print(f"Failed to fetch user ID for username: {username}. Status code: {response.status_code}")
+    except Exception as e:
+        print(f"Error fetching user ID: {e}")
+    return None
+
+# Get user ID from username
+USERNAME = config['username']
+USER_ID = fetch_user_id(USERNAME)
+
+if not USER_ID:
+    print(f"Could not fetch user ID for username: {USERNAME}. Please refer to the README for setup instructions: https://github.com/Dave-Swagten/Medal.tv-Bulk-Downloader?tab=readme-ov-file#%EF%B8%8F-configuration")
+    exit(1)
+
+print(f"Fetched User ID: {USER_ID} for username: {USERNAME}")
 
 def download_mp4(content_url, filename, download_folder):
     try:
