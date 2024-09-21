@@ -92,8 +92,9 @@ Once you have your username and cookies, open `config.json` in a text editor and
 }
 ```
 
-If you would like to use a cacheFile to record what has been downloaded between runs update `cacheFile` to i.e `downloads/downloads.txt`
-If you would like customize the titles for the saved videos update `titleFormat` there are reserved variables of {date} and {title} which eval to the dates and titles fo the videos everything else is taken verbatim
+If you would like to use a cacheFile to record what has been downloaded between runs, update `cacheFile` to i.e `downloads/downloads.txt`
+
+If you would like customize the titles for the saved videos, update `titleFormat`. there are reserved variables of {date} and {title} which eval to the dates and titles fo the videos everything else is taken verbatim
 
 ---
 

@@ -21,13 +21,12 @@ def load_cache(file_path):
     if file_path != '':
         try:
             with open(file_path, 'r') as file:
-                return file.read().splitlines()
+                return set(file.read().splitlines())
         except FileNotFoundError:
-            with open(file_path, 'w') as file:
-                # Write some content to the file
-                file.write('')
-            return []
-            
+            print(f"Cache file not found: {file_path}. Creating a new one.")
+            open(file_path, 'w').close()  # Create an empty file
+    return set()  # Return an empty set if no file path is provided or if the file is empty
+
 def update_cache(content_id, file_path):
     if file_path != '':
         with open(file_path, 'a') as file:
