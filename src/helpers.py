@@ -16,6 +16,22 @@ def load_config():
         print("Error parsing the configuration file. Ensure it is valid JSON format.")
         exit(1)
 
+# Load cache file
+def load_cache(file_path):
+    if file_path != '':
+        try:
+            with open(file_path, 'r') as file:
+                return file.read().splitlines()
+        except FileNotFoundError:
+            with open(file_path, 'w') as file:
+                # Write some content to the file
+                file.write('')
+            return []
+            
+def update_cache(content_id, file_path):
+    if file_path != '':
+        with open(file_path, 'a') as file:
+            file.write(content_id + "\n")
 
 # Parse cookies from the configuration
 def parse_cookies(cookies_list):

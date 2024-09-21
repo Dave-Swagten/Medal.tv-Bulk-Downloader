@@ -24,6 +24,9 @@ if __name__ == "__main__":
         video_count = 0
         batch_start_time = time.time()
         for item in items:
+            if item['contentId'] in content_ids:
+                print(f"Skipping previously downloaded item: {item.get('contentTitle', 'Untitled')}")
+                continue
             if max_clips > 0 and total_downloaded >= max_clips:
                 print(f"Reached the specified number of clips ({max_clips}). Stopping download.")
                 exit(0)
@@ -46,7 +49,7 @@ if __name__ == "__main__":
                         continue    
                     download_mp4(download_folder, cookies, content_url, filename)
                     processed_files.add(filename)
-                        total_downloaded += 1
+                    update_cache(item["contentId"], cache_file)
                     video_count += 1
                     total_downloaded += 1
                     
