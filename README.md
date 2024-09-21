@@ -42,7 +42,7 @@ Before you can start downloading your clips, you'll need to set up the `config.j
 Rename the example configuration file:
 
 ```bash
-mv example.config.json config.json
+cp src/example.config.json src/config.json
 ```
 
 ### 2. Set up your username and Cookies
@@ -92,6 +92,8 @@ Once you have your username and cookies, open `config.json` in a text editor and
 }
 ```
 
+If you would like to use a cacheFile to record what has been downloaded between runs update `cacheFile` to i.e `downloads/downloads.txt`
+
 ---
 
 ## 🚀 How to Use
@@ -103,12 +105,24 @@ Once everything is set up, you're ready to start downloading your clips!
 To start downloading your Medal.tv videos, run:
 
 ```bash
-python main.py
+python src/main.py
 ```
+
+or
+
+`make run`
 
 The script will fetch your videos and save them to the `downloads` folder. Files are named based on their upload date and title to keep things organized.
 
 ---
+
+### Run via docker
+
+add the config.json to the root instead of src
+then
+`make build`
+then
+`make run-docker`
 
 ## 💡 Tips & Tricks
 
