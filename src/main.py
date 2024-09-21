@@ -21,7 +21,10 @@ if __name__ == "__main__":
     while True:
         print(f"Fetching data with offset {offset}...")
         items = fetch_data(user_id,cookies, offset, sort_direction)
-        video_count = 0
+        video_count = len(items)
+        if video_count == 0:
+            print("No more videos to download. Exiting.")
+            break
         batch_start_time = time.time()
         for item in items:
             if item['contentId'] in content_ids:
@@ -51,7 +54,6 @@ if __name__ == "__main__":
                     download_mp4(download_folder, cookies, content_url, filename)
                     processed_files.add(filename)
                     update_cache(item["contentId"], cache_file)
-                    video_count += 1
                     total_downloaded += 1
                     
                 except Exception as e:
@@ -72,4 +74,4 @@ if __name__ == "__main__":
 
         if max_clips > 0 and total_downloaded >= max_clips:
             print(f"Reached the specified number of clips ({max_clips}). Stopping download.")
-            exit(0)
+            break
