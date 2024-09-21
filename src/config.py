@@ -11,6 +11,7 @@ def parse_config():
     user_id = fetch_user_id(username, cookies)
     cache_file = config.get('cacheFile', '')
     download_folder = config.get('downloadFolder', 'downloads')
+    title_format = config.get('titleFormat', '{date}_{title}')
     max_clips = config.get('maxClips', 0)
     sort_direction = config.get('sortDirection', '')
 
@@ -59,6 +60,7 @@ def parse_config():
         "CACHE_FILE": cache_file,
         "MAX_CLIPS": max_clips,
         "SORT_DIRECTION": sort_direction,
-        "DOWNLOAD_FOLDER": download_folder
+        "DOWNLOAD_FOLDER": download_folder,
+        "TITLE_FORMAT": title_format
     }
 

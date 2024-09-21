@@ -4,5 +4,6 @@
   "cookies": [],
   "maxClips": -1,
   "sortDirection": "",
-  "downloadFolder": "downloads"
+  "downloadFolder": "downloads",
+  "titleFormat": "{date}_{title}"
 }

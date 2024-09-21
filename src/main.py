@@ -42,7 +42,8 @@ if __name__ == "__main__":
                     
                     # Format filename with title and date
                     sanitized_title = sanitize_filename(content_title)
-                    filename = f"{date_str}_{sanitized_title}.mp4"
+                    title_format = CONFIG['TITLE_FORMAT']
+                    filename = f"{title_format.format(date=date_str, title=sanitized_title)}.mp4"
                     
                     if filename in processed_files:
                         print(f"Skipping previously downloaded item: {item.get('contentTitle', 'Untitled')}")
