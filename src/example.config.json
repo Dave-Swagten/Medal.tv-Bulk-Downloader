@@ -1,4 +1,8 @@
 {
   "username": "your_medal_username",
-  "cookies": 
+  "cacheFile": "",
+  "cookies": [],
+  "maxClips": -1,
+  "sortDirection": "",
+  "downloadFolder": "downloads"
 }
