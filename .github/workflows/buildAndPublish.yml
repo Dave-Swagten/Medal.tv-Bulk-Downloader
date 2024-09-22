@@ -24,7 +24,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: ghcr.io/Dave-Swagten/medal.tv-bulk-downloader:latest
+          tags: ghcr.io/dave-swagten/medal.tv-bulk-downloader:latest
           platforms: linux/amd64,linux/arm64
   # TODO:
   # python:
