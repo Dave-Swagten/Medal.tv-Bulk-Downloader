@@ -1,26 +1,18 @@
 import time
-from config import parse_config
-from helpers import convert_timestamp_to_date, sanitize_filename, update_cache
+from config import CONFIG
+from helpers import format_filename, update_cache
 from requestHelper import download_mp4, fetch_data
-
-CONFIG = parse_config()
 
 if __name__ == "__main__":
     offset = 0
     total_downloaded = 0
     processed_files = set()
-
-    download_folder =  CONFIG['DOWNLOAD_FOLDER']
-    sort_direction = CONFIG['SORT_DIRECTION']
     max_clips = CONFIG['MAX_CLIPS']
-    cookies = CONFIG['COOKIES']
-    user_id = CONFIG['USER_ID']
     content_ids = CONFIG['CONTENT_IDS']
-    cache_file = CONFIG['CACHE_FILE']
 
     while True:
         print(f"Fetching data with offset {offset}...")
-        items = fetch_data(user_id,cookies, offset, sort_direction)
+        items = fetch_data(offset)
         video_count = len(items)
         if video_count == 0:
             print("No more videos to download. Exiting.")
@@ -51,9 +43,9 @@ if __name__ == "__main__":
                     if filename in processed_files:
                         print(f"Skipping previously downloaded item: {item.get('contentTitle', 'Untitled')}")
                         continue    
-                    download_mp4(download_folder, cookies, content_url, filename)
+                    download_mp4(content_url, filename)
                     processed_files.add(filename)
-                    update_cache(item["contentId"], cache_file)
+                    update_cache(item["contentId"])
                     total_downloaded += 1
                     
                 except Exception as e:
