@@ -19,10 +19,6 @@ def fetch_data(offset):
         print(f"Error fetching data from API with offset {offset}: {e}")
         exit(1)
 
-    # make an empty list if no data is returned, probably no more videos to download 
-    if not data:
-        data = set()
-        
     if not isinstance(data, list):
         print(f"Unexpected data format. Expected list but got {type(data)}.")
         exit(1)
