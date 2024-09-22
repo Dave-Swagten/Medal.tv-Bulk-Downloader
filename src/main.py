@@ -28,17 +28,8 @@ if __name__ == "__main__":
 
             if 'contentUrl' in item and 'publishedAt' in item:
                 try:
-                    content_title = item.get('contentTitle', 'Untitled')
                     content_url = item['contentUrl']
-                    published_at = item['publishedAt']
-                    
-                    # Convert the publishedAt timestamp to a date string
-                    date_str = convert_timestamp_to_date(published_at)
-                    
-                    # Format filename with title and date
-                    sanitized_title = sanitize_filename(content_title)
-                    title_format = CONFIG['TITLE_FORMAT']
-                    filename = f"{title_format.format(date=date_str, title=sanitized_title)}.mp4"
+                    filename = format_filename(item.get('contentTitle', 'Untitled'), item['publishedAt'])
                     
                     if filename in processed_files:
                         print(f"Skipping previously downloaded item: {item.get('contentTitle', 'Untitled')}")
