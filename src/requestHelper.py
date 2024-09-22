@@ -1,10 +1,7 @@
 import os
 import time
 import requests
-
 from config import CONFIG
-
-
 
 def fetch_data(offset):
     user_id = CONFIG['USER_ID']
@@ -17,14 +14,14 @@ def fetch_data(offset):
              data = response.json()
         else:
             print(f"Failed to fetch data from API with offset {offset}. Status code: {response.status_code}")
-            data = None
+            exit(1)
     except Exception as e:
         print(f"Error fetching data from API with offset {offset}: {e}")
-        data = None
-    
-    if not data:
-        print("No data returned or error occurred. Exiting.")
         exit(1)
+
+    # make an empty list if no data is returned, probably no more videos to download 
+    if not data:
+        data = set()
         
     if not isinstance(data, list):
         print(f"Unexpected data format. Expected list but got {type(data)}.")
