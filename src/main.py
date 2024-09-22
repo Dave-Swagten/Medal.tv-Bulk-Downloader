@@ -6,7 +6,6 @@ from requestHelper import download_mp4, fetch_data
 if __name__ == "__main__":
     offset = 0
     total_downloaded = 0
-    processed_files = set()
     max_clips = CONFIG['MAX_CLIPS']
     content_ids = CONFIG['CONTENT_IDS']
 
@@ -26,17 +25,15 @@ if __name__ == "__main__":
                 print(f"Reached the specified number of clips ({max_clips}). Stopping download.")
                 exit(0)
 
-            if 'contentUrl' in item and 'publishedAt' in item:
+            if 'contentUrl' in item and 'publishedAt' in item and 'contentId' in item:
                 try:
-                    content_url = item['contentUrl']
                     filename = format_filename(item.get('contentTitle', 'Untitled'), item['publishedAt'])
-                    
-                    if filename in processed_files:
-                        print(f"Skipping previously downloaded item: {item.get('contentTitle', 'Untitled')}")
-                        continue    
+                    content_url = item['contentUrl']
+                    content_id = item["contentId"]
+
                     download_mp4(content_url, filename)
-                    processed_files.add(filename)
-                    update_cache(item["contentId"])
+                    content_ids.add(content_id)
+                    update_cache(content_id)
                     total_downloaded += 1
                     
                 except Exception as e:
