@@ -1,6 +1,52 @@
+import json
 import os
-from helpers import parse_cookies,load_cache,load_config
-from requestHelper import fetch_user_id
+import requests
+
+# Fetch user ID from username
+def fetch_user_id(username, cookies):
+    url = f"https://medal.tv/api/users?username={username}"
+    try:
+        response = requests.get(url, cookies=cookies)
+        if response.status_code == 200:
+            data = response.json()
+            if data and isinstance(data, list) and len(data) > 0:
+                return data[0].get('userId')
+        print(f"Failed to fetch user ID for username: {username}. Status code: {response.status_code}")
+    except Exception as e:
+        print(f"Error fetching user ID: {e}")
+    return None
+
+# Load configuration from JSON file
+def load_config():
+    config_file = 'config.json'
+    try:
+        with open(config_file, 'r') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        print(f"The configuration file '{config_file}' does not exist. Please refer to the README for setup instructions: https://github.com/Dave-Swagten/Medal.tv-Bulk-Downloader?tab=readme-ov-file#%EF%B8%8F-configuration")
+        
+        exit(1)
+    except json.JSONDecodeError:
+        print("Error parsing the configuration file. Ensure it is valid JSON format.")
+        exit(1)
+
+# Load cache file
+def load_cache(file_path):
+    if file_path != '':
+        try:
+            with open(file_path, 'r') as file:
+                return set(file.read().splitlines())
+        except FileNotFoundError:
+            print(f"Cache file not found: {file_path}. Creating a new one.")
+            open(file_path, 'w').close()  # Create an empty file
+    return set()  # Return an empty set if no file path is provided or if the file is empty
+
+# Parse cookies from the configuration
+def parse_cookies(cookies_list):
+    cookies_dict = {}
+    for cookie in cookies_list:
+        cookies_dict[cookie['name']] = cookie['value']
+    return cookies_dict
 
 def parse_config():
     # Load configuration
@@ -64,3 +110,4 @@ def parse_config():
         "TITLE_FORMAT": title_format
     }
 
+CONFIG = parse_config()
