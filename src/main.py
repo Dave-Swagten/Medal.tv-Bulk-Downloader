@@ -27,7 +27,7 @@ if __name__ == "__main__":
 
             if 'contentUrl' in item and 'publishedAt' in item and 'contentId' in item:
                 try:
-                    filename = format_filename(item.get('contentTitle', 'Untitled'), item['publishedAt'])
+                    filename = format_filename(item.get('contentTitle', 'Untitled'), item['publishedAt'], item['category'].get('categoryName', 'Untitled'))
                     content_url = item['contentUrl']
                     content_id = item["contentId"]
 
