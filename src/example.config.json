@@ -5,5 +5,5 @@
   "maxClips": -1,
   "sortDirection": "",
   "downloadFolder": "downloads",
-  "titleFormat": "{date}_{title}"
+  "titleFormat": "{category}_{date}_{title}"
 }
